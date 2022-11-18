@@ -1,0 +1,29 @@
+name: Build Seminarfach
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git v2
+        uses: actions/checkout@v2
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: ./Seminarfach.tex
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          
+      - name: Clean GitHub
+        run: |
+          git clean -fX
